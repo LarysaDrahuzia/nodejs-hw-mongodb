@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -19,10 +20,14 @@
   },
   "homepage": "https://github.com/LarysaDrahuzia/nodejs-hw-mongodb#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "mongoose": "^8.14.1"
+    "mongoose": "^8.14.1",
+    "pino-http": "^10.4.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "pino-pretty": "^13.0.0"
   }
 }
