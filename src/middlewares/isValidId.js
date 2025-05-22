@@ -6,7 +6,7 @@ export const isValidId = (req, res, next) => {
   if (!isValidObjectId(contactId)) {
     throw createHttpError(
       400,
-      'Request for invalid ID. Please enter a valid value ID',
+      'Invalid ID format. Please provide a valid MongoDB ObjectId.',
     );
   }
   next();
