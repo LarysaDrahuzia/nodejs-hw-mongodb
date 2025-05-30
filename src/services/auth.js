@@ -41,6 +41,18 @@ export const loginUser = async ({ email, password }) => {
   });
 };
 
+const createSession = () => {
+  const accessToken = randomBytes(30).toString('base64');
+  const refreshToken = randomBytes(30).toString('base64');
+
+  return {
+    accessToken,
+    refreshToken,
+    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
+  };
+};
+
 export const refreshUser = async ({ sessionId, refreshToken }) => {
   const session = await SessionsCollection.findOne({
     _id: sessionId,
@@ -59,29 +71,16 @@ export const refreshUser = async ({ sessionId, refreshToken }) => {
     throw new createHttpError(401, 'Session token expired');
   }
 
+  const newSession = createSession();
+
   await SessionsCollection.deleteOne({ _id: sessionId, refreshToken });
 
   return await SessionsCollection.create({
     userId: session.userId,
-    accessToken,
-    refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
-    refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
+    ...newSession,
   });
 };
 
 export const logoutUser = async (sessionId) => {
   await SessionsCollection.deleteOne({ _id: sessionId });
-
-  const createSession = () => {
-    const accessToken = randomBytes(30).toString('base64');
-    const refreshToken = randomBytes(30).toString('base64');
-
-    return {
-      accessToken,
-      refreshToken,
-      accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
-      refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
-    };
-  };
 };
