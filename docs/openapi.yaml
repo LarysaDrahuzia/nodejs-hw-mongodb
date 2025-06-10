@@ -14,6 +14,7 @@ tags:
 servers:
   - url: http://localhost:3000
   - url: https://github.com/LarysaDrahuzia/nodejs-hw-mongodb/tree/hw6-email-and-images
+  - url: https://nodejs-hw-mongodb-5-kk5y.onrender.com
 
 paths:
   /contacts:
