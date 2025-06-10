@@ -13,7 +13,8 @@ tags:
     description: Auth operations.
 servers:
   - url: http://localhost:3000
-  - url: #посилання на задеплоєний сайт
+  - url: https://github.com/LarysaDrahuzia/nodejs-hw-mongodb/tree/hw6-email-and-images
+
 paths:
   /contacts:
     get:
