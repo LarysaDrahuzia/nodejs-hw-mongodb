@@ -90,9 +90,7 @@
             "in": "query",
             "name": "isFavourite",
             "schema": {
-              "type": "boolean",
-              "example": true,
-              "default": false
+              "type": "boolean"
             },
             "description": "Is the contact a favorite"
           },
@@ -105,9 +103,7 @@
                 "work",
                 "home",
                 "personal"
-              ],
-              "example": "work",
-              "default": "personal"
+              ]
             },
             "description": "Type of contact"
           }
@@ -184,6 +180,9 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       },
@@ -283,6 +282,9 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
@@ -343,6 +345,9 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       },
@@ -448,6 +453,9 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       },
@@ -480,6 +488,9 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
@@ -647,9 +658,29 @@
         "operationId": "refreshUser",
         "description": "Refresh the logged-in user`s session",
         "security": [],
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "sessionId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "abc123"
+            },
+            "description": "Session ID of the user"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully refreshed a session",
+            "headers": {
+              "Set-Cookie": {
+                "description": "Cookieset after successfully refresh",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1048,6 +1079,43 @@
                     "message": {
                       "type": "string",
                       "example": "Email in use"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "error"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Somethihg went wrong!"
+                },
+                "error": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Somethihg went wrong!"
                     }
                   }
                 }

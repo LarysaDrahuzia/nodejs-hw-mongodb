@@ -39,16 +39,12 @@ parameters:
     name: isFavourite
     schema:
       type: boolean
-      example: true
-      default: false
     description: 'Is the contact a favorite'
   - in: query
     name: contactType
     schema:
       type: string
       enum: ['work', 'home', 'personal']
-      example: work
-      default: personal
     description: 'Type of contact'
 responses:
   '200':
@@ -103,3 +99,5 @@ responses:
                   example: true
   '401':
     $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

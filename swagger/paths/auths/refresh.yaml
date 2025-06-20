@@ -4,9 +4,22 @@ summary: Refresh user
 operationId: refreshUser
 description: 'Refresh the logged-in user`s session'
 security: []
+parameters:
+  - in: cookie
+    name: sessionId
+    required: true
+    schema:
+      type: string
+      example: abc123
+    description: 'Session ID of the user'
 responses:
   '200':
     description: 'Successfully refreshed a session'
+    headers:
+      Set-Cookie:
+        description: 'Cookieset after successfully refresh'
+        schema:
+          type: string
     content:
       application/json:
         schema:
